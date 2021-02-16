@@ -1,0 +1,23 @@
+# test/resources/fixtures/publishing.yml
+
+UsuarioVO: &UsuarioVO
+  nombre_usuario: ${faker.name.fullName}
+  nombre: ${faker.name.username}
+  password: ${faker.internet.password}
+
+ClienteVO: &ClienteVO
+  nombre_usuario: ${faker.name.fullName}
+  nombre: ${faker.name.username}
+  password: ${faker.internet.password}
+  direccion: ${faker.address.fullAddress}
+  telefono: ${faker.phoneNumber.cellPhone}
+
+LineaVO: &LineaVO
+  codproducto: ${faker.code.ean8}
+  uds: ${faker.number.numberBetween(1,10)}
+  precio: ${faker.number.randomDouble(2,4,20)}
+
+ProductoVO: &ProductoVO
+  codigo: ${faker.code.ean8}
+  nombre: ${faker.funnyName.name}
+  precio: ${faker.number.randomDouble(2,4,20)}
