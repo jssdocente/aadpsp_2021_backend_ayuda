@@ -7,10 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.With;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 //TODO:Lombok builder annotations
 @AllArgsConstructor
@@ -26,7 +23,7 @@ public class PedidoVOBuilder extends VOBuilder {
 
     //private Integer numLineas=2;
 
-    private Set<LineaVO> lineas;
+    private List<LineaVO> lineas;
 
     public PedidoVO build() {
         PedidoVO pedido = new PedidoVO(usuarioId,lineas);

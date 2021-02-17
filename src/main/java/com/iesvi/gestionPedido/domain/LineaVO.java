@@ -1,15 +1,13 @@
 package com.iesvi.gestionPedido.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @Data
 @Entity(name = "Linea")
+@EqualsAndHashCode(exclude = {"pedido","producto"})
 public class LineaVO {
 
     @Id

@@ -1,70 +1,97 @@
 package com.iesvi.gestionPedido.application;
 
-//import com.iesvi.gestionPedido.domain.GestionPedidoController;
-//import com.iesvi.gestionPedido.domain.PedidoVO;
-//import com.iesvi.gestionPedido.domain.ProductoVO;
-//import com.iesvi.gestionPedido.domain.repos.PedidoRepo;
-//import com.iesvi.gestionPedido.infra.conversores.ConversorPedido;
-//import com.iesvi.gestionPedido.infra.conversores.ConversorProducto;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
-//
-//import java.util.List;
-//
-//@Service
-//public class PedidoService implements GestionPedidoController {
-//
-//    @Autowired
-//    PedidoRepo pedidoRepo;
-//
-//    @Autowired
-//    ConversorPedido conversorPedido;
-//
-//    @Autowired
-//    ConversorProducto conversorProducto;
-//
-//    @Transactional
-//    @Override
-//    public void realizarPedido(PedidoVO pedidoVO, List<ProductoVO> productos) {
-//        //Agregamos todos los productos, al pedido antes de guardar el pedido, y el pedido se encarga de persistir los productos.
-//        for (ProductoVO productoVO : productos) {
-//            //pedidoVO.addProducto(productoVO);
-//        }
-//
-//        //En este caso, no necesitamos el repositorio de Producto, ya que el pedido es un "Agregado" que sabe persistir el conjunto.
-//        pedidoRepo.save(pedidoVO);
-//    }
-//
-//    @Transactional
-//    @Override
-//    public void modificarPedido(PedidoDTO pedidoDTO) throws Exception {
-//        PedidoVO nbd = pedidoRepo.findOne(pedidoDTO.getId_pedido());
-//        if (nbd == null)
-//            throw new Exception("Pedido no existe");
-//
-//        //Crear Pedido-entity desde pedido-dto (por ahora lo creamos manualmente)
-//
-//        List<ProductoVO> listaProductos = conversorProducto.convertLISTA_DTOtoVO(pedidoDTO.getId_Productos());
-//
-//        //PedidoVO updpedido = new PedidoVO(nbd.getId_pedido(), listaProductos, pedidoDTO.getId_usuario(), pedidoDTO.getTotal(), pedidoDTO.getFecha_entrada(), pedidoDTO.getFecha_entrega(), pedidoDTO.getEstado());
-//
-//        //pedidoRepo.save(updpedido);
-//    }
-//
-//    @Override
-//    public Boolean cancelarPedido(Integer id) {
-//        return pedidoRepo.delete(id);
-//    }
-//
-//    @Override
-//    public PedidoDTO consultarDatosPedidos(Integer id) {
-//        //return conversorPedido.convertVOtoDTO(pedidoRepo.findOne(id));
-//        return new PedidoDTO();
-//    }
-//
-//    @Override
-//    public void actualizarEstado(Integer id) {
-//
-//    }
-//}
+import com.iesvi.gestionPedido.application.dto.PedidoDTO;
+import com.iesvi.gestionPedido.application.mapper.PedidoMapper;
+import com.iesvi.gestionPedido.domain.LineaVO;
+import com.iesvi.gestionPedido.domain.PedidoVO;
+import com.iesvi.gestionPedido.domain.ProductoVO;
+import com.iesvi.gestionPedido.domain.repos.PedidoRepo;
+import com.iesvi.shared.domain.err.EntityNotExist;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class PedidoService {
+
+    @Autowired
+    PedidoRepo pedidoRepo;
+
+    @Transactional
+    public PedidoVO realizarPedido(PedidoDTO dto) {
+
+        PedidoVO pedido = PedidoMapper.fromDTO(dto);
+
+        //***** faltan las validaciones
+
+        pedidoRepo.save(pedido);
+
+        return pedido;
+    }
+
+    @Transactional
+    public void modificarPedido(PedidoDTO dto) {
+
+        PedidoVO pedidoBd = pedidoRepo.findOne(dto.getId());
+        if (pedidoBd == null)
+            throw new EntityNotExist(PedidoVO.class.toString(),dto.getId());
+
+        //** Modificar un pedido es dificil, ya que hay que saber muy bien qué se puede modificar y qué no.
+        // >> También a nivel de lineas es complejo, ya que habría que comparar las lineas del dto con las del pedido obtenido de BD.
+
+        /* Cosas que no pueden cambiar (por ahora)
+         * Estado, FechaEntrada, FechaEntrega, Usuario-crea,
+         */
+        pedidoBd.setNumero(dto.getNumero());
+
+        /*LO PRIMERO LAS LINEAS QUE ESTÁN EN BD y SE HAN ELIMINADO EN LA ACTUALIZACIÓN ==> no existen en el PedidoDTO
+         * LO HAREAMOS C         */
+        for (LineaVO lbd: pedidoBd.getLineas()) {
+            //tengo que verificar si están en el dto ==> si no se han eliminado del pedido
+            Optional<PedidoDTO.LineapedidoDTO> optlindto =  dto.getLineas().stream().filter(ldto -> ldto.getCodproducto().equalsIgnoreCase(lbd.getCodproducto())).findFirst();
+            if (!optlindto.isPresent()) {
+                //Este producto no está presente en el pedido modificado ==> se ha eliminado ese producto
+                pedidoBd.removeLinea(lbd); //borramos la linea del pedido
+            }
+        }
+
+        /* LINEAS. COMPARAR LINEA a LINEA por los productos y sus unidades*/
+        for (PedidoDTO.LineapedidoDTO lin: dto.getLineas()) {
+            //tengo que encontrar la linea con ese producto
+            Optional<LineaVO> optlinbd =  pedidoBd.getLineas().stream().filter(lbd -> lin.getCodproducto().equalsIgnoreCase(lbd.getCodproducto())).findFirst();
+            if (optlinbd.isPresent()) {
+                //Ese producto no es nuevo ==> Esta en el DTO y en BD ==> modificar UDS solamente
+                LineaVO lbd = optlinbd.get();
+                lbd.setUds(lbd.getUds());
+                lbd.calculateTotals();
+
+            } else {
+                //Ese producto es nuevo ==> Esta en el DTO y no en BD ==> Agregar una linea nueva
+                pedidoBd.addLinea(PedidoMapper.fromLineaDTO(lin));
+            }
+        }
+
+        //**** AHORA SÍ, ACTUALIZAMOS EL PEDIDO EN BD ******
+
+        pedidoRepo.save(pedidoBd);
+    }
+
+    public Boolean cancelarPedido(Integer id) {
+        return pedidoRepo.delete(id);
+    }
+
+    public PedidoDTO consultarDatosPedidos(Integer id) {
+
+        PedidoVO pedido = pedidoRepo.findOne(id);
+
+        return PedidoMapper.toDTO(pedido);
+
+    }
+
+    public void actualizarEstado(Integer id) {
+
+    }
+}

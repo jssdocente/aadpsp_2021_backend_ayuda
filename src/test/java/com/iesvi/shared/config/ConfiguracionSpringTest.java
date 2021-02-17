@@ -12,5 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Import({ConfiguracionPersistenciaTest.class})
 public class ConfiguracionSpringTest {
 
-
+    public ConfiguracionSpringTest() {
+        System.setProperty("org.jboss.logging.provider","log4j2");
+    }
 }
