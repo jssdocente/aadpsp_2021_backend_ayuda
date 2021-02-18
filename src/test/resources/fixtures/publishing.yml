@@ -21,3 +21,11 @@ ProductoVO: &ProductoVO
   codigo: ${faker.code.ean8}
   nombre: ${faker.funnyName.name}
   precio: ${faker.number.randomDouble(2,4,20)}
+
+
+PersonaVO: &UsuarioVO
+  fullName: ${faker.name.fullName}
+  login: ${faker.name.username}
+  password: ${faker.internet.password}
+  email: ${faker.internet.emailAddress}
+  telefono: ${faker.phoneNumber.cellPhone}
