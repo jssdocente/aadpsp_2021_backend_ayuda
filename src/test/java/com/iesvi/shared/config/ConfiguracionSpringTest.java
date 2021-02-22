@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @ComponentScan({"com.iesvi.*"})
 @EnableTransactionManagement
-@Import({ConfiguracionPersistenciaTest.class})
+@Import({ConfiguracionPersistenciaTest.class,ConfigurationMongoTest.class})
 public class ConfiguracionSpringTest {
 
     public ConfiguracionSpringTest() {

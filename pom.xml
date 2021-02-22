@@ -106,6 +106,14 @@
             <version>2.3.6.RELEASE</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-mongodb -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>2.2.13.RELEASE</version>
+        </dependency>
+
+
 
         <!-- SLF4J logging-->
         <dependency>

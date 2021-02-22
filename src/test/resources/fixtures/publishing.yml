@@ -22,10 +22,15 @@ ProductoVO: &ProductoVO
   nombre: ${faker.funnyName.name}
   precio: ${faker.number.randomDouble(2,4,20)}
 
-
 PersonaVO: &UsuarioVO
   fullName: ${faker.name.fullName}
   login: ${faker.name.username}
   password: ${faker.internet.password}
   email: ${faker.internet.emailAddress}
+  telefono: ${faker.phoneNumber.cellPhone}
+
+NotificacionVO: &NotificacionVO
+  id: ${faker.number.numberBetween(1,100000000)}
+  message: ${faker.lorem.sentence(6,20)}
+  userId: ${faker.number.numberBetween(5,200)}
   telefono: ${faker.phoneNumber.cellPhone}
