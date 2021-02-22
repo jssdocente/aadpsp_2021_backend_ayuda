@@ -6,6 +6,7 @@ import com.iesvi.gestionUsuario.domain.builder.ClienteVOBuilder;
 import com.iesvi.gestionUsuario.application.mapper.*;
 import com.iesvi.gestionUsuario.domain.repos.ClienteRepo;
 import com.iesvi.shared.config.ConfiguracionSpringTest;
+import com.iesvi.shared.domain.err.EntityExist;
 import com.iesvi.shared.domain.err.EntityNotExist;
 import org.junit.Assert;
 import org.junit.Test;
@@ -38,7 +39,7 @@ public class GestionUsuarioIntegraTestCase {
 
     }
 
-    @Test(expected = EntityNotExist.class)
+    @Test(expected = EntityExist.class)
     public void ShouldRegisterClienteExist_ThrowExceptionTest() {
 
         // **** Arrange
@@ -53,14 +54,10 @@ public class GestionUsuarioIntegraTestCase {
     @Test(expected = EntityNotExist.class)
     public void ShouldRemoveClienteNotExist_ThrowExceptionTest() {
 
-        // **** Arrange
-        ClienteVO cltExist = userService.registrarse(ClienteMapper.toDTO(new ClienteVOBuilder().build()));
-
         //Act
-        userService.eliminarDatosUsuario(cltExist.getId());
+        userService.eliminarDatosUsuario(25);
     }
 
-    @Test(expected = EntityNotExist.class)
     public void ShouldRemoveClienteExistTest() {
 
         // **** Arrange

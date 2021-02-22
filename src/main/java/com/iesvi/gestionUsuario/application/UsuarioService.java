@@ -4,6 +4,7 @@ import com.iesvi.gestionUsuario.application.dto.ClienteDTO;
 import com.iesvi.gestionUsuario.domain.ClienteVO;
 import com.iesvi.gestionUsuario.application.mapper.ClienteMapper;
 import com.iesvi.gestionUsuario.domain.repos.ClienteRepo;
+import com.iesvi.shared.domain.err.EntityExist;
 import com.iesvi.shared.domain.err.EntityNotExist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class UsuarioService {
         //ClienteVO nuevoCliente = ClienteMapper.toDTO(clientedto)
         ClienteVO nbd = clienteRepo.findOne(clientedto.getId());
         if (nbd!=null)
-            throw new EntityNotExist(ClienteVO.class.toString(),nbd.getId());
+            throw new EntityExist(ClienteVO.class.toString(),clientedto.getId());
 
         ClienteVO nuevoCliente = new ClienteVO(clientedto.getId(), clientedto.getNombre(), clientedto.getNombre_usuario(), clientedto.getPassword(), clientedto.getDireccion(), clientedto.getTelefono());
 
