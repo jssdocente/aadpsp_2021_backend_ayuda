@@ -35,9 +35,8 @@ public class PedidoService {
     @Transactional
     public void modificarPedido(PedidoDTO dto) {
 
-        PedidoVO pedidoBd = pedidoRepo.findOne(dto.getId());
-        if (pedidoBd == null)
-            throw new EntityNotExist(PedidoVO.class.toString(),dto.getId());
+        PedidoVO pedidoBd = pedidoRepo.findById(dto.getId())
+                .orElseThrow(() -> new EntityNotExist(PedidoVO.class.toString(),dto.getId()));
 
         //** Modificar un pedido es dificil, ya que hay que saber muy bien qué se puede modificar y qué no.
         // >> También a nivel de lineas es complejo, ya que habría que comparar las lineas del dto con las del pedido obtenido de BD.
@@ -80,15 +79,16 @@ public class PedidoService {
     }
 
     public Boolean cancelarPedido(Integer id) {
-        return pedidoRepo.delete(id);
+
+        pedidoRepo.deleteById(id);
+
+        return true;
     }
 
     public PedidoDTO consultarDatosPedidos(Integer id) {
 
-        PedidoVO pedido = pedidoRepo.findOne(id);
-
-        return PedidoMapper.toDTO(pedido);
-
+        return PedidoMapper.toDTO(pedidoRepo.findById(id)
+                .orElse(new PedidoVO()));
     }
 
     public void actualizarEstado(Integer id) {
