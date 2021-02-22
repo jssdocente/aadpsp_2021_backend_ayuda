@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ConfiguracionSpringTest.class})
@@ -26,6 +27,7 @@ public class GestionUsuarioIntegraTestCase {
     ClienteRepo clienteRepo;
 
     @Test
+    @Transactional
     public void ShouldRegisterClienteNotExistTest() {
 
         //Arrange
@@ -40,6 +42,7 @@ public class GestionUsuarioIntegraTestCase {
     }
 
     @Test(expected = EntityExist.class)
+    @Transactional
     public void ShouldRegisterClienteExist_ThrowExceptionTest() {
 
         // **** Arrange
@@ -52,12 +55,15 @@ public class GestionUsuarioIntegraTestCase {
     }
 
     @Test(expected = EntityNotExist.class)
+    @Transactional
     public void ShouldRemoveClienteNotExist_ThrowExceptionTest() {
 
         //Act
         userService.eliminarDatosUsuario(25);
     }
 
+    @Test
+    @Transactional
     public void ShouldRemoveClienteExistTest() {
 
         // **** Arrange

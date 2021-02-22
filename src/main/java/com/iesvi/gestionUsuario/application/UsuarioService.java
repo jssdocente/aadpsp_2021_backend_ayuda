@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 /* CASO/S DE USO DE LA ENTIDAD
  **/
 @Service
@@ -25,8 +27,8 @@ public class UsuarioService {
     public ClienteVO registrarse(ClienteDTO clientedto) {
 
         //ClienteVO nuevoCliente = ClienteMapper.toDTO(clientedto)
-        ClienteVO nbd = clienteRepo.findOne(clientedto.getId());
-        if (nbd!=null)
+        Optional<ClienteVO> nbd = clienteRepo.findById(clientedto.getId());
+        if (nbd.isPresent())
             throw new EntityExist(ClienteVO.class.toString(),clientedto.getId());
 
         ClienteVO nuevoCliente = new ClienteVO(clientedto.getId(), clientedto.getNombre(), clientedto.getNombre_usuario(), clientedto.getPassword(), clientedto.getDireccion(), clientedto.getTelefono());
@@ -37,30 +39,34 @@ public class UsuarioService {
     @Transactional
     public void modificarDatosUsuario(ClienteDTO clienteDTO) throws Exception{
 
-        ClienteVO nbd = clienteRepo.findOne(clienteDTO.getId());
+        Optional<ClienteVO> nbd = clienteRepo.findById(clienteDTO.getId());
 
-        if(nbd == null){
+        if(!nbd.isPresent()){
             throw new EntityNotExist(ClienteVO.class.toString(),clienteDTO.getId());
         }
 
-        ClienteVO updCliente = new ClienteVO(nbd.getId(), clienteDTO.getNombre(), clienteDTO.getNombre_usuario(), clienteDTO.getPassword(), clienteDTO.getDireccion(),clienteDTO.getTelefono());
+        ClienteVO updCliente = new ClienteVO(nbd.get().getId(), clienteDTO.getNombre(), clienteDTO.getNombre_usuario(), clienteDTO.getPassword(), clienteDTO.getDireccion(),clienteDTO.getTelefono());
 
         clienteRepo.save(updCliente);
 
     }
 
     public ClienteVO consultarDatosUsuario(int id) {
-        return clienteRepo.findOne(id);
+        return clienteRepo.findById(id).get();
     }
 
+    @Transactional
     public Boolean eliminarDatosUsuario(int id) {
 
-        ClienteVO nbd = clienteRepo.findOne(id);
+        Optional<ClienteVO> nbd = clienteRepo.findById(id);
 
-        if(nbd == null){
+        if(!nbd.isPresent()){
             throw new EntityNotExist(ClienteVO.class.toString(),id);
         }
 
-        return clienteRepo.delete(id);
+        clienteRepo.deleteById(id);
+
+        //No da error ==> ok
+        return true;
     }
 }
