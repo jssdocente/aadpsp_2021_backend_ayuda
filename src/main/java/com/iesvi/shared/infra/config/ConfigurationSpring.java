@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @ComponentScan("com.iesvi")
 @EnableTransactionManagement
-@Import(value = {ConfiguracionPersistencia.class, ConfigurationMongo.class})
+@Import(value = {ConfiguracionPersistencia.class,ConfigurationSocket.class})
 public class ConfigurationSpring {
 
 

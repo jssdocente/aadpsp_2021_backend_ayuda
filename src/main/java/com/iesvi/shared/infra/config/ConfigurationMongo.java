@@ -11,8 +11,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import java.util.Collection;
 import java.util.Collections;
 
-@Configuration
-@EnableMongoRepositories(basePackages = "com.iesvi.repository")
+@EnableMongoRepositories(basePackages = "com.iesvi")
 public class ConfigurationMongo extends AbstractMongoClientConfiguration {
 
     private static String BDNAME;

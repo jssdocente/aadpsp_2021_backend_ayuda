@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="Hibernate" />
+        <datasource-mapping>
+          <factory-entry name="bdmm" />
+          <factory-entry name="bdmm-no-load-script" />
+          <factory-entry name="bdreal" />
+        </datasource-mapping>
+        <naming-strategy-map />
+        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
+      </configuration>
+    </facet>
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/src/main/java/com/iesvi/shared/infra/config/ConfigurationSpring.java</file>
           <file>file://$MODULE_DIR$/src/main/java/com/iesvi/shared/infra/config/ConfiguracionPersistencia.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/com/iesvi/shared/infra/config/ConfigurationSocket.java</file>
         </fileset>
       </configuration>
     </facet>
@@ -77,6 +91,8 @@
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:2.3.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-jpa:2.3.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjrt:1.9.6" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-mongodb:2.2.13.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:3.11.2" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.5" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.7.5" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.17" level="project" />

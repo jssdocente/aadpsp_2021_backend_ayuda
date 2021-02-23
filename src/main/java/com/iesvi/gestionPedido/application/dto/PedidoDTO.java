@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.iesvi.gestionPedido.domain.LineaVO;
+import com.iesvi.shared.application.Dto;
 import lombok.*;
 
 @AllArgsConstructor
@@ -11,7 +12,7 @@ import lombok.*;
 @Getter
 @Setter
 @With
-public class PedidoDTO {
+public class PedidoDTO implements Dto {
 
     private Integer id;
     private String numero;
