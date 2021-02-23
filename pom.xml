@@ -67,28 +67,28 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>5.2.12.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>5.2.12.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
-            <version>5.2.12.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>5.2.12.RELEASE</version>
+            <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -96,14 +96,14 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons</artifactId>
-            <version>2.3.6.RELEASE</version>
+            <version>${spring.data.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
-            <version>2.3.6.RELEASE</version>
+            <version>${spring.data.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-mongodb -->
@@ -124,7 +124,14 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.5</version>
+            <version>${slf4jlog4j.version}</version>
+        </dependency>
+
+        <!-- ASPECTS-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
@@ -139,6 +146,9 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <spring.version>5.2.12.RELEASE</spring.version>
+        <spring.data.version>2.3.6.RELEASE</spring.data.version>
+        <slf4jlog4j.version>1.7.5</slf4jlog4j.version>
     </properties>
 
 </project>
