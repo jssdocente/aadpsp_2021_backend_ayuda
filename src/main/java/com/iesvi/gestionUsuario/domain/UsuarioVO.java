@@ -1,5 +1,6 @@
 package com.iesvi.gestionUsuario.domain;
 
+import com.iesvi.shared.domain.audit.AuditableEntity;
 import lombok.*;
 import lombok.experimental.WithBy;
 
@@ -11,10 +12,10 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @Entity(name = "Usuario")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class UsuarioVO implements Serializable {
+public class UsuarioVO extends AuditableEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
