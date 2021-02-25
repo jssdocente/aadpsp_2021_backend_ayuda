@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan("com.iesvi")
 @EnableTransactionManagement
 @EnableJpaAuditing(auditorAwareRef="customAuditorAware")
-@Import(value = {ConfiguracionPersistencia.class,ConfigurationSocket.class})
+@Import(value = {ConfiguracionPersistencia.class,ConfigurationSocket.class,ConfigSwagger.class,ConfigWeb.class})
 public class ConfigurationSpring {
 
 

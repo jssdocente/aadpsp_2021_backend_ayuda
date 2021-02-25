@@ -91,6 +91,19 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Swagger -->
+        <!-- Spring Fox Dependencies -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+
         <!-- SLF4J logging-->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -110,6 +123,13 @@
             <version>${spring.version}</version>
         </dependency>
 
+        <!-- REST ASSURED TESTING REST-CONTROLLERS -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>spring-mock-mvc</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
@@ -125,6 +145,7 @@
         <spring.version>5.2.12.RELEASE</spring.version>
         <spring.data.version>2.3.6.RELEASE</spring.data.version>
         <slf4jlog4j.version>1.7.5</slf4jlog4j.version>
+        <swagger.version>2.9.2</swagger.version>
         <java.version>1.8</java.version>
     </properties>
 

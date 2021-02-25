@@ -2,8 +2,9 @@ package com.iesvi.gestionUsuario.application;
 
 import com.iesvi.gestionUsuario.application.dto.ClienteDTO;
 import com.iesvi.gestionUsuario.domain.ClienteVO;
-import com.iesvi.gestionUsuario.application.mapper.ClienteMapper;
+import com.iesvi.gestionUsuario.domain.UsuarioVO;
 import com.iesvi.gestionUsuario.domain.repos.ClienteRepo;
+import com.iesvi.gestionUsuario.domain.repos.UsuarioRepo;
 import com.iesvi.shared.domain.err.EntityExist;
 import com.iesvi.shared.domain.err.EntityNotExist;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,10 @@ public class UsuarioService {
 
     @Autowired
     ClienteRepo clienteRepo;
+
+    @Autowired
+    UsuarioRepo userRepo;
+
 
     //TODO:borrar ==> no hace falta
     //public void setClienteRepo(ClienteRepo clienteRepo) {}
@@ -52,7 +57,12 @@ public class UsuarioService {
     }
 
     public ClienteVO consultarDatosUsuario(int id) {
-        return clienteRepo.findById(id).get();
+        return clienteRepo.findById(id)
+                .orElse(null);
+    }
+
+    public Optional<UsuarioVO> findUserById(int id) {
+        return userRepo.findById(id);
     }
 
     @Transactional
