@@ -9,14 +9,15 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-//TODO:Renombrado a UsuarioUnitTestCase
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
+//@ActiveProfiles("test")
+//@SpringBootTest()
 @ContextConfiguration(classes = {ConfiguracionSpringTest.class})
 public class UsuarioInfraUnitTC extends UnitTestCase {
 
@@ -26,20 +27,7 @@ public class UsuarioInfraUnitTC extends UnitTestCase {
     @Override
     public void setup() {
         super.setup();
-        //TODO:COMENTAR
-//        repo = new ClienteRepositoryJPA();
-//        repo.setEntityManager(em);
     }
-
-    //TODO:QUITAR==>Este metodo no hace falta
-//    @Test
-//    public void inyectarEntityManager() {
-//        Assert.assertNotNull(em);
-//    }
-
-    //TODO:QUITAR==> Este metodo es un CU
-//    public void registrarse() {
-//    }
 
     @Test
     @Transactional

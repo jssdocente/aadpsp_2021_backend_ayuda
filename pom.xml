@@ -70,6 +70,26 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Inclusion de JUnit 4, ya que SpringBoot no incluye por defecto-->
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- BeanMother test   -->
+        <dependency>
+            <groupId>io.beanmother</groupId>
+            <artifactId>beanmother-core</artifactId>
+            <version>0.9.0</version>
+            <scope>test</scope>
+        </dependency>
 
         <!-- SLF4J logging-->
         <dependency>

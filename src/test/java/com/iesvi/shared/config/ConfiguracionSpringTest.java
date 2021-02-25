@@ -1,5 +1,6 @@
 package com.iesvi.shared.config;
 
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -8,7 +9,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @Configuration
-@ComponentScan({"com.iesvi.*"})
+@SpringBootTest
+@ComponentScan({"com.iesvi", "com.iesvi.shared.infra.audit"})
 @EnableJpaAuditing(auditorAwareRef="customAuditorAware")
 @EnableTransactionManagement
 @Import({ConfiguracionPersistenciaTest.class,ConfigurationMongoTest.class})
