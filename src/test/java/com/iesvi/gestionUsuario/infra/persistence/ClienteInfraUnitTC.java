@@ -71,7 +71,8 @@ public class ClienteInfraUnitTC extends UnitTestCase {
         //Assert
         ClienteVO entityBd = em.find(ClienteVO.class,entity.getId());
 
-        Assert.assertEquals(entityEdit, entityBd);
+        Assert.assertEquals(entityEdit.getNombreUsuario(), entityBd.getNombreUsuario());
+        Assert.assertEquals(entityEdit.getTelefono(), entityBd.getTelefono());
     }
 
     @Test

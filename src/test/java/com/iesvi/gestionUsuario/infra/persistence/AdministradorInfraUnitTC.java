@@ -70,7 +70,7 @@ public class AdministradorInfraUnitTC extends UnitTestCase {
         //Assert
         AdministradorVO userBd = em.find(AdministradorVO.class,user.getId());
 
-        Assert.assertEquals(userEdit, userBd);
+        Assert.assertEquals(userEdit.getNombreUsuario(), userBd.getNombreUsuario());
     }
 
     @Test

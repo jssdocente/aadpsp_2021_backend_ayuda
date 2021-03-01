@@ -1,12 +1,12 @@
 # test/resources/fixtures/publishing.yml
 
 UsuarioVO: &UsuarioVO
-  nombre_usuario: ${faker.name.fullName}
+  nombreUsuario: ${faker.name.fullName}
   nombre: ${faker.name.username}
   password: ${faker.internet.password}
 
 ClienteVO: &ClienteVO
-  nombre_usuario: ${faker.name.fullName}
+  nombreUsuario: ${faker.name.fullName}
   nombre: ${faker.name.username}
   password: ${faker.internet.password}
   direccion: ${faker.address.fullAddress}

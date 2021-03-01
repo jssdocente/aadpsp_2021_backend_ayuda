@@ -8,6 +8,9 @@ import com.iesvi.shared.config.ConfiguracionSpringTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +20,7 @@ import javax.persistence.PersistenceContext;
 
 @RunWith(SpringRunner.class)
 //@ActiveProfiles("test")
-//@SpringBootTest()
+@SpringBootTest()
 @ContextConfiguration(classes = {ConfiguracionSpringTest.class})
 public class UsuarioInfraUnitTC extends UnitTestCase {
 
@@ -31,6 +34,7 @@ public class UsuarioInfraUnitTC extends UnitTestCase {
 
     @Test
     @Transactional
+    @Commit
     public void ShouldNewUserTest() {
         //Arrange
         UsuarioVO user = createAndSaveNewUser();
@@ -59,7 +63,7 @@ public class UsuarioInfraUnitTC extends UnitTestCase {
         //Assert
         UsuarioVO userBd = em.find(UsuarioVO.class,user.getId());
 
-        Assert.assertEquals(userEdit, userBd);
+        Assert.assertEquals(userEdit.getNombreUsuario(), userBd.getNombreUsuario());
     }
 
     @Test

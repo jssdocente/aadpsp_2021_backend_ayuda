@@ -13,7 +13,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @With @Builder
-@EqualsAndHashCode(callSuper = false)
 @Entity(name = "Usuario")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class UsuarioVO extends AuditableEntity implements UserDetails, Serializable {
@@ -52,8 +51,34 @@ public class UsuarioVO extends AuditableEntity implements UserDetails, Serializa
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        UsuarioVO usuarioVO = (UsuarioVO) o;
+
+        if (!id.equals(usuarioVO.id)) return false;
+        if (!nombreUsuario.equals(usuarioVO.nombreUsuario)) return false;
+        if (!password.equals(usuarioVO.password)) return false;
+        if (!nombre.equals(usuarioVO.nombre)) return false;
+        return roles.equals(usuarioVO.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + id.hashCode();
+        result = 31 * result + nombreUsuario.hashCode();
+        result = 31 * result + password.hashCode();
+        result = 31 * result + nombre.hashCode();
+        result = 31 * result + roles.hashCode();
+        return result;
+    }
+
+    @Override
     public String getUsername() {
-        return this.getNombreUsuario();
+        return this.getNombre();
     }
 
     //No gestionamos expiraciones de cuenta
