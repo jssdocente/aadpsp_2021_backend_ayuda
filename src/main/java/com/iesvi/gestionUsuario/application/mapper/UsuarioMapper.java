@@ -1,23 +1,33 @@
 package com.iesvi.gestionUsuario.application.mapper;
 
 import com.iesvi.gestionUsuario.application.dto.UsuarioDTO;
+import com.iesvi.gestionUsuario.domain.UserRole;
 import com.iesvi.gestionUsuario.domain.UsuarioVO;
+
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class UsuarioMapper {
 
     public static UsuarioDTO toDTO(UsuarioVO vo) {
         return new UsuarioDTO()
                 .withId(vo.getId())
-                .withNombre_usuario(vo.getNombre_usuario())
+                .withNombreUsuario(vo.getNombreUsuario())
                 .withNombre(vo.getNombre())
+                .withRoles(vo.getRoles().stream()
+                        .map(role -> role.name())
+                        .collect(Collectors.toSet()))
                 .withPassword(vo.getPassword());
     }
 
-    //TODO: convertDTO ==>  Por ctor
-    public UsuarioVO fromDTO(UsuarioDTO dto){
-        UsuarioVO usuarioVO = new UsuarioVO();
+    public static UsuarioVO fromDTO(UsuarioDTO dto) {
 
-        return new UsuarioVO(dto.getNombre(),dto.getNombre_usuario(),dto.getPassword());
+        return UsuarioVO.builder()
+                .nombreUsuario(dto.getNombreUsuario())
+                .nombre(dto.getNombre())
+                .password(dto.getPassword())
+                .roles(Stream.of(UserRole.USER).collect(Collectors.toSet()))
+                .build();
     }
 
 }

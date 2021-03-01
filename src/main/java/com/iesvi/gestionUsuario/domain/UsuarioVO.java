@@ -2,7 +2,6 @@ package com.iesvi.gestionUsuario.domain;
 
 import com.iesvi.shared.domain.audit.AuditableEntity;
 import lombok.*;
-import lombok.experimental.WithBy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,11 +12,7 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Getter
-@With //TODO:LOMBOK NEW ANNOTATION @WITH
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @With @Builder
 @EqualsAndHashCode(callSuper = false)
 @Entity(name = "Usuario")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -27,10 +22,11 @@ public class UsuarioVO extends AuditableEntity implements UserDetails, Serializa
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Builder.Default
     Integer id=1;
 
     @Column(unique = true, nullable = false)
-    String nombre_usuario;
+    String nombreUsuario;
 
     @Column(length = 500, nullable = false)
     String password;
@@ -42,8 +38,8 @@ public class UsuarioVO extends AuditableEntity implements UserDetails, Serializa
     @Enumerated(EnumType.STRING)
     Set<UserRole> roles;
 
-    public UsuarioVO(String nombre, String nombre_usuario, String password) {
-        this.nombre_usuario = nombre_usuario;
+    public UsuarioVO(String nombre, String NombreUsuario, String password) {
+        this.nombreUsuario = NombreUsuario;
         this.password = password;
         this.nombre = nombre;
     }
@@ -57,7 +53,7 @@ public class UsuarioVO extends AuditableEntity implements UserDetails, Serializa
 
     @Override
     public String getUsername() {
-        return this.getNombre_usuario();
+        return this.getNombreUsuario();
     }
 
     //No gestionamos expiraciones de cuenta

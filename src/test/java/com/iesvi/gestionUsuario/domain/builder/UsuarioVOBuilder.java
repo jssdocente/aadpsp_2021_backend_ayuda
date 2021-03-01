@@ -3,11 +3,7 @@ package com.iesvi.gestionUsuario.domain.builder;
 import com.iesvi.gestionUsuario.domain.UsuarioVO;
 import com.iesvi.shared.domain.VOBuilder;
 import io.beanmother.core.ObjectMother;
-import lombok.Builder;
 import lombok.With;
-import lombok.experimental.Wither;
-
-import java.util.Date;
 
 //TODO:Lombok builder annotations
 @With
@@ -33,7 +29,7 @@ public class UsuarioVOBuilder extends VOBuilder {
 
         return new UsuarioVO(
                 nombre!=null ? nombre : mother.getNombre(),
-                nombre_usuario!=null ? nombre_usuario : mother.getNombre_usuario(),
+                nombre_usuario!=null ? nombre_usuario : mother.getNombreUsuario(),
                 password!=null ? password : mother.getPassword()
         );
     }

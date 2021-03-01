@@ -59,7 +59,7 @@ public class AdministradorInfraUnitTC extends UnitTestCase {
         AdministradorVO user = createAndSaveNewAdministradorUser();
 
         AdministradorVO userEdit = em.find(AdministradorVO.class,user.getId());
-        userEdit.setNombre_usuario("Manuel");
+        userEdit.setNombreUsuario("Manuel");
 
         //Act
         em.persist(userEdit);

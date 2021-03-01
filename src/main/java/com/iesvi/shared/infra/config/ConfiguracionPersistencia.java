@@ -15,7 +15,7 @@ import javax.persistence.EntityManagerFactory;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories("com.iesvi.*")
+@EnableJpaRepositories("com.iesvi")
 public class ConfiguracionPersistencia {
 
     @Bean

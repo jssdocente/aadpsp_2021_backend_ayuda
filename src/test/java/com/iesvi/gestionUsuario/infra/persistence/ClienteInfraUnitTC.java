@@ -59,7 +59,7 @@ public class ClienteInfraUnitTC extends UnitTestCase {
         ClienteVO entity = createAndSaveNewClienteUser();
 
         ClienteVO entityEdit = em.find(ClienteVO.class,entity.getId());
-        entityEdit.setNombre_usuario("Manuel");
+        entityEdit.setNombreUsuario("Manuel");
         entityEdit.setTelefono("667453235");
 
         //Act

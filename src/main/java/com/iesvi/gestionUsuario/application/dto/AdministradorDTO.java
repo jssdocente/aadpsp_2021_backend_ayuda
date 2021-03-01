@@ -5,12 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.With;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @With
 public class AdministradorDTO extends UsuarioDTO {
 
-    public AdministradorDTO(Integer id, String nombre, String nombre_usuario, String password) {
-        super(id, nombre, nombre_usuario, password);
+    public AdministradorDTO(Integer id, String nombre, String nombreUsuario, String password, String password2, Set<String> roles) {
+        super(id, nombre, nombreUsuario, password, password2, roles);
     }
 }

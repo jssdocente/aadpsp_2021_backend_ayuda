@@ -2,19 +2,18 @@ package com.iesvi.gestionUsuario.application.dto;
 
 import lombok.*;
 
+import java.util.Set;
 
-@AllArgsConstructor
-@Getter
-@Setter
-@With
-public class ClienteDTO extends UsuarioDTO {
+ @Getter @Setter @Builder
+//@With
+public class ClienteDTO {
+
+    private Integer id;
+    private String nombre, nombreUsuario;
+    private String password,password2;
+    private Set<String> roles;
 
     private String direccion;
     private String telefono;
 
-    public ClienteDTO(Integer id, String nombre, String nombre_usuario, String password, String direccion, String telefono) {
-        super(id, nombre, nombre_usuario, password);
-        this.direccion = direccion;
-        this.telefono = telefono;
-    }
 }

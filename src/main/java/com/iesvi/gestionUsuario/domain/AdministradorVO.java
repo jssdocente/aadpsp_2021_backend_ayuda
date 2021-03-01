@@ -1,24 +1,21 @@
 package com.iesvi.gestionUsuario.domain;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
+import java.util.Set;
 
 
-@Getter
-@Setter
-@NoArgsConstructor
+@NoArgsConstructor @Getter @Setter
 @Entity(name = "Administrador")
 public class AdministradorVO extends UsuarioVO {
 
-    public AdministradorVO(String nombre, String nombre_usuario, String password) {
-        super(nombre, nombre_usuario, password);
+    @Builder(builderMethodName = "adminBuilder")
+    public AdministradorVO(Integer id, String NombreUsuario, String password, String nombre, Set<UserRole> roles) {
+        super(id, NombreUsuario, password, nombre, roles);
     }
 }

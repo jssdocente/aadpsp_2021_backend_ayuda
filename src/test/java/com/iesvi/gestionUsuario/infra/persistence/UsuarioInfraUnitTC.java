@@ -48,7 +48,7 @@ public class UsuarioInfraUnitTC extends UnitTestCase {
         UsuarioVO user = createAndSaveNewUser();
 
         UsuarioVO userEdit = em.find(UsuarioVO.class,user.getId());
-        userEdit.setNombre_usuario("Manuel");
+        userEdit.setNombreUsuario("Manuel");
 
         //Act
         em.persist(userEdit);

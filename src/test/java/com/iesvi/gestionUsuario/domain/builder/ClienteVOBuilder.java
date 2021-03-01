@@ -1,7 +1,6 @@
 package com.iesvi.gestionUsuario.domain.builder;
 
 import com.iesvi.gestionUsuario.domain.ClienteVO;
-import com.iesvi.gestionUsuario.application.mapper.ClienteMapper;
 import io.beanmother.core.ObjectMother;
 import lombok.With;
 
@@ -29,12 +28,12 @@ public class ClienteVOBuilder extends UsuarioVOBuilder {
         ObjectMother om = ObjectMother.getInstance();
         ClienteVO mother= om.bear("ClienteVO",ClienteVO.class);
 
-        return new ClienteVO(
-                nombre!=null ? nombre : mother.getNombre(),
-                nombre_usuario!=null ? nombre_usuario : mother.getNombre_usuario(),
-                password!=null ? password : mother.getPassword(),
-                direccion!=null ? direccion : mother.getDireccion(),
-                telefono!=null ? telefono : mother.getTelefono()
-        );
+        return ClienteVO.clienteBuilder()
+                .NombreUsuario(nombre_usuario !=null ? nombre_usuario : mother.getNombreUsuario())
+                .nombre(nombre!=null ? nombre : mother.getNombre())
+                .password(password!=null ? password : mother.getPassword())
+                .direccion(direccion!=null ? direccion : mother.getDireccion())
+                .telefono(telefono!=null ? telefono : mother.getTelefono())
+                .build();
     }
 }
