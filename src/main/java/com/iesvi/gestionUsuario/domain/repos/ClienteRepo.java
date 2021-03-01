@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.Optional;
 
 
 //TODO: Refactor ahora exte
@@ -23,6 +24,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 public interface ClienteRepo extends JpaRepository<ClienteVO, Integer> {
 
     //Aqui debemos incluir métodos de búsqueda personalizados
+    Optional<ClienteVO> findByNombreUsuario(String username);
 
 }
 
