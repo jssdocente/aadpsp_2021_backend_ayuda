@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -27,6 +28,9 @@ public class ConfigSegurity extends WebSecurityConfigurerAdapter {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
+
 //    @Override
 //    public void configure(WebSecurity web) throws Exception {
 //        super.configure(web);
@@ -34,6 +38,22 @@ public class ConfigSegurity extends WebSecurityConfigurerAdapter {
 //       // web.ignoring().anyRequest();  //Ahora no ignorabmos las peticiones, sino que las vamos a autentifificar.
 //
 //    }
+
+    private static final String[] AUTH_WHITELIST = {
+            // -- Swagger UI v2
+            "/", "/csrf",
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            // -- Swagger UI v3 (OpenAPI)
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+            // other public endpoints of your API may be appended to this array
+    };
 
     //Se indica cómo se va a validar los usuarios, y qué tipo de encoder utilizar.
     @Override
@@ -49,6 +69,7 @@ public class ConfigSegurity extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(authbasic)
                 .and()
                 .authorizeRequests()
+                .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers(HttpMethod.GET, "/pedido/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/pedido/**").hasRole("USER")
                 .antMatchers(HttpMethod.DELETE, "/pedido/**").hasRole("ADMIN")
@@ -56,5 +77,9 @@ public class ConfigSegurity extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable();
+
+        //Incluimos un manejador de acceso-denegado
+        http.exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler);
     }
 }

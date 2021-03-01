@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(EndpointUrls.API + EndpointUrls.V1 + ClienteRestController.USER_RESOURCE)
+@RequestMapping(EndpointUrls.V1 + ClienteRestController.USER_RESOURCE)
 @AllArgsConstructor
 public class ClienteRestController {
 

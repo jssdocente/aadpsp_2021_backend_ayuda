@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @SpringBootTest
-@ComponentScan({"com.iesvi", "com.iesvi.shared.infra.audit"})
+@ComponentScan({"com.iesvi.shared.infra.audit"})
 @EnableJpaAuditing(auditorAwareRef="customAuditorAware")
 @EnableTransactionManagement
 @Import({ConfiguracionPersistenciaTest.class,ConfigurationMongoTest.class})
