@@ -24,7 +24,7 @@ public class app {
 
         RunApp runApp = appContext.getBean(RunApp.class);
 
-        runApp.run();
+        //runApp.run();
 
         ((AnnotationConfigApplicationContext) appContext).close();
 
